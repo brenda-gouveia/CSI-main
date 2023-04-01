@@ -11,6 +11,14 @@ from time import time
 from datetime import datetime;
 from pytz import timezone
 
+
+def variance_pca(series):
+	pca = PCA()
+	principal_components = pca.fit_transform(series)
+
+	explained_variance = pca.explained_variance_
+	
+
 def iq_samples_abs(series):
 	abs_series = {}
 	for key in series.keys():
@@ -149,6 +157,8 @@ def analyze(csi):
 
 	series = band_pass_filter(series)
 	#plot(series, "After Band Pass Filter")
+
+	variance_pca(series)
 
 	series = csi_pca(series)
 	#plot(series, "Principal Component")
