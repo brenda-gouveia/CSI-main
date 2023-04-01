@@ -28,9 +28,6 @@ def batimentos(scan, bpm):
 
 
 
-
-
-
 if __name__ == "__main__":
 
     tabela = {}

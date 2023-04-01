@@ -1,3 +1,4 @@
+import fnmatch
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -17,6 +18,10 @@ def variance_pca(series):
 	principal_components = pca.fit_transform(series)
 
 	explained_variance = pca.explained_variance_
+
+	f = open("variance.txt", "a")
+	f.write(str(explained_variance[0]))
+	f.close()
 	
 
 def iq_samples_abs(series):
