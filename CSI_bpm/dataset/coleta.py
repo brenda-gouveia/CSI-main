@@ -6,7 +6,7 @@ import os
 import time
 
 
-def process_pcap_file(pcap_filename, caminho):
+def process_pcap_file(pcap_filename, caminho, sequence):
 
     #pcap_filepath = '../scans'
    
@@ -24,7 +24,7 @@ def process_pcap_file(pcap_filename, caminho):
     
 
     csi_data = samples.get_pd_csi()
-    return analyze(csi_data)
+    return analyze(csi_data, sequence)
     
     
 

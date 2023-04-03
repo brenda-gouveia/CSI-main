@@ -50,7 +50,7 @@ if __name__ == "__main__":
             file_exists = dataset.check_next_file(file)
             print('Processados :', quantidade)
             if file_exists:
-                bpm = dataset.process_pcap_file(file, caminho)
+                bpm = dataset.process_pcap_file(file, caminho, sequence)
                 print("##########  BPM   "+ file + "  " + filename + "  "+str(bpm)+ "###################")
                 #batimentos(filename, bpm)
             else:
