@@ -163,7 +163,7 @@ def analyze(csi, sequence):
 	
 	series = moving_avg_filter(csi)
 
-	series = moving_avg_filter(series)
+	#series = moving_avg_filter(series)
 	#plot(series, "After Moving Average Filter")
 
 	series = band_pass_filter(series)
