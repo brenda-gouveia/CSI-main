@@ -12,20 +12,25 @@ from time import time
 from datetime import datetime;
 from pytz import timezone
 import json
+from os.path import dirname, join
 
 
 def variance_pca(series, sequence): ## sequence é as posições, de 1 ao 17
+
+	current_dir = dirname(__file__)
+	file_path = join(current_dir, "pca_variance.json")
+
 	pca = PCA()
 	principal_components = pca.fit_transform(series)
 
 	explained_variance = pca.explained_variance_
 
-	with open('pca_variance.json', 'r') as arquivo:
+	with open(file_path, 'r') as arquivo:
 		dados = json.load(arquivo)
 
 	dados[str(sequence)].append(explained_variance[0])
 
-	with open('pca_variance.json', 'w') as arquivo:
+	with open(file_path, 'w') as arquivo:
 		json.dump(dados, arquivo)
 	
 	
