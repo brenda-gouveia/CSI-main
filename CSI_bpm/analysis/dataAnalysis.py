@@ -11,17 +11,23 @@ from scipy.fft import fft, fftfreq
 from time import time
 from datetime import datetime;
 from pytz import timezone
+import json
 
 
-def variance_pca(series):
+def variance_pca(series, sequence): ## sequence é as posições, de 1 ao 17
 	pca = PCA()
 	principal_components = pca.fit_transform(series)
 
 	explained_variance = pca.explained_variance_
 
-	f = open("variance.txt", "a")
-	f.write(str(explained_variance[0]))
-	f.close()
+	with open('pca_variance.json', 'r') as arquivo:
+		dados = json.load(arquivo)
+
+	dados[str(sequence)].append(explained_variance[0])
+
+	with open('pca_variance.json', 'w') as arquivo:
+		json.dump(dados, arquivo)
+	
 	
 
 def iq_samples_abs(series):
@@ -146,7 +152,7 @@ def plot(series, title):
 	plt.show()
 
 
-def analyze(csi):
+def analyze(csi, sequence):
 	series_abs = iq_samples_abs(csi)
 	#plot(series_abs, "All subcarrier's magnitude")
 
@@ -163,7 +169,7 @@ def analyze(csi):
 	series = band_pass_filter(series)
 	#plot(series, "After Band Pass Filter")
 
-	variance_pca(series)
+	variance_pca(series, sequence)
 
 	series = csi_pca(series)
 	#plot(series, "Principal Component")
