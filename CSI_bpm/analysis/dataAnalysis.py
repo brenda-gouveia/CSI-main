@@ -23,7 +23,7 @@ def variance_pca(series, sequence): ## sequence é as posições, de 1 ao 17
 	pca = PCA()
 	principal_components = pca.fit_transform(series)
 
-	explained_variance = pca.explained_variance_
+	explained_variance = pca.explained_variance_ratio_
 
 	with open(file_path, 'r') as arquivo:
 		dados = json.load(arquivo)
