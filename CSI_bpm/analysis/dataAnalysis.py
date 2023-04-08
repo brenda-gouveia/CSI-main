@@ -13,6 +13,7 @@ from datetime import datetime;
 from pytz import timezone
 import json
 from os.path import dirname, join
+import pickle
 
 
 def variance_pca(series, sequence): ## sequence é as posições, de 1 ao 17
@@ -158,7 +159,7 @@ def plot(series, title):
 
 
 def analyze(csi, sequence):
-	series_abs = iq_samples_abs(csi)
+	#series_abs = iq_samples_abs(csi)
 	#plot(series_abs, "All subcarrier's magnitude")
 
 	#series = hampel_filter(csi)
@@ -166,7 +167,12 @@ def analyze(csi, sequence):
 
 	#series = moving_avg_filter(series)
 	
-	series = moving_avg_filter(csi)
+	#series = moving_avg_filter(csi)
+	#plot(series, "After Moving Average Filter")
+
+
+	with open ("filtro_2.pkl", mode ='wb') as f:
+		pickle.dump([csi], f)
 
 	#series = moving_avg_filter(series)
 	#plot(series, "After Moving Average Filter")
