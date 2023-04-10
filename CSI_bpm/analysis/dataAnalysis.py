@@ -14,6 +14,7 @@ from pytz import timezone
 import json
 from os.path import dirname, join
 import pickle
+from scipy.ndimage import median_filter
 
 
 def variance_pca(series, sequence): ## sequence é as posições, de 1 ao 17
@@ -157,6 +158,9 @@ def plot(series, title):
 	ax.set(xlabel='Samples', ylabel='dB', title=title)
 	plt.show()
 
+def mediana_filter(series, size):
+    return median_filter(series, 15)
+
 
 def analyze(csi, sequence):
 	#series_abs = iq_samples_abs(csi)
@@ -167,12 +171,11 @@ def analyze(csi, sequence):
 
 	#series = moving_avg_filter(series)
 	
-	#series = moving_avg_filter(csi)
+	series = moving_avg_filter(csi)
 	#plot(series, "After Moving Average Filter")
 
+	median_filter(series, 15)
 
-	with open ("filtro_2.pkl", mode ='wb') as f:
-		pickle.dump([csi], f)
 
 	#series = moving_avg_filter(series)
 	#plot(series, "After Moving Average Filter")

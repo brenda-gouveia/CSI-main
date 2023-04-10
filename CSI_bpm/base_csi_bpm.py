@@ -27,7 +27,6 @@ def batimentos(scan, bpm):
         tabela[scan] = pd.concat([x,bpm], ignore_index = True)
 
 
-
 if __name__ == "__main__":
 
     tabela = {}
