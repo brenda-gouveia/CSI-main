@@ -183,7 +183,7 @@ def analyze(csi, sequence):
 	series = band_pass_filter(series)
 	#plot(series, "After Band Pass Filter")
 
-	variance_pca(series, sequence)
+	#variance_pca(series, sequence)
 
 	series = csi_pca(series)
 	#plot(series, "Principal Component")
