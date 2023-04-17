@@ -130,13 +130,13 @@ def heart_beat(n, xf, yf):
 	mediaFrequencia = sum(frequenciasMax) / n
 	bpm = round(mediaFrequencia * 60) 
 	#InterfaceHeartRate.show_heart_rate(bpm)
-	timestamp = time()
-	dt = datetime.fromtimestamp(timestamp, tz = timezone("America/Sao_Paulo"))
-	timestamp_bpm = dt.strftime("%d/%m/%Y %H:%M:%S")
+	#timestamp = time()
+	#dt = datetime.fromtimestamp(timestamp, tz = timezone("America/Sao_Paulo"))
+	#timestamp_bpm = dt.strftime("%d/%m/%Y %H:%M:%S")
 
-	arqSaida = open("batimentos.txt","a+") 
-	arqSaida.write(str(bpm) + ' ' + str(timestamp_bpm) + '\n')
-	arqSaida.close()
+	#arqSaida = open("batimentos.txt","a+") 
+	#arqSaida.write(str(bpm) + ' ' + str(timestamp_bpm) + '\n')
+	#arqSaida.close()
 	return bpm
 		  
 
@@ -174,7 +174,7 @@ def analyze(csi, sequence):
 	series = moving_avg_filter(csi)
 	#plot(series, "After Moving Average Filter")
 
-	median_filter(series, 15)
+	#median_filter(series, 15)
 
 
 	#series = moving_avg_filter(series)
@@ -187,6 +187,9 @@ def analyze(csi, sequence):
 
 	series = csi_pca(series)
 	#plot(series, "Principal Component")
+
+	with open ("csi_pca.pkl", mode ='wb') as f:
+		pickle.dump([series], f)
 
 	x = series['PCA'].to_numpy()
 	bpm = csi_fft(x)
