@@ -111,8 +111,8 @@ def heart_beat(n, xf, yf):
 	sizeXf = len(xf)	
 
 	for i in range(sizeXf):
-		if xf[i] > 1 and xf[i] < 2.5:
-		#if xf[i] > 0.6 and xf[i] < 3.67:
+		#if xf[i] > 1 and xf[i] < 2.5:
+		if xf[i] > 0.6 and xf[i] < 3.67:
 			frequencias.append(xf[i])
 			amplitudes.append(np.abs(yf[i]))	
 	amplitudes, frequencias = zip(*sorted(zip(amplitudes, frequencias)))
@@ -128,7 +128,8 @@ def heart_beat(n, xf, yf):
 	frequenciasMax, amplitudesMax = zip(*sorted(zip(frequenciasMax, amplitudesMax)))
 	
 	mediaFrequencia = sum(frequenciasMax) / n
-	bpm = round(mediaFrequencia * 60) 
+	bpm = round(mediaFrequencia * 60)
+
 	#InterfaceHeartRate.show_heart_rate(bpm)
 	#timestamp = time()
 	#dt = datetime.fromtimestamp(timestamp, tz = timezone("America/Sao_Paulo"))
@@ -188,8 +189,6 @@ def analyze(csi, sequence):
 	series = csi_pca(series)
 	#plot(series, "Principal Component")
 
-	with open ("csi_pca.pkl", mode ='wb') as f:
-		pickle.dump([series], f)
 
 	x = series['PCA'].to_numpy()
 	bpm = csi_fft(x)

@@ -18,14 +18,18 @@ def process_pcap_file(pcap_filename, caminho, sequence):
     except FileNotFoundError:
         print(f'File {pcap_filepath} not found.')
         exit(-1)
-
-    #if config.plot_samples:
-    #    plotter = Plotter(samples.bandwidth, samples.nsamples)
     
-
     csi_data = samples.get_pd_csi()
-    return analyze(csi_data, sequence)
-    
+    csi = []
+    csi.append(analyze(csi_data[:160],sequence))
+    print(csi)
+    csi.append(analyze(csi_data[160:320],sequence))
+    print(csi)
+    csi.append(analyze(csi_data[320:500],sequence))
+    print(csi)
+
+    #return analyze(csi_data, sequence)
+    return csi
     
 
     #function to check if next file exists. Wait until 15 seconds
