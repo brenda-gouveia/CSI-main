@@ -122,12 +122,17 @@ def heart_beat(n, xf, yf):
 	amplitudesMax = []
 
 	for i in range(n):
+		if j <= -1:
+			break
 		frequenciasMax.append(frequencias[j])
 		amplitudesMax.append(amplitudes[j])	
 		j-=1
 	frequenciasMax, amplitudesMax = zip(*sorted(zip(frequenciasMax, amplitudesMax)))
 	
-	mediaFrequencia = sum(frequenciasMax) / n
+	if j == -1:
+		mediaFrequencia = sum(frequenciasMax) / len(frequenciasMax)
+	else:
+		mediaFrequencia = sum(frequenciasMax) / n
 	bpm = round(mediaFrequencia * 60)
 
 	#InterfaceHeartRate.show_heart_rate(bpm)
