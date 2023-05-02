@@ -111,8 +111,8 @@ def heart_beat(n, xf, yf):
 	sizeXf = len(xf)	
 
 	for i in range(sizeXf):
-		#if xf[i] > 1 and xf[i] < 2.5:
-		if xf[i] > 0.6 and xf[i] < 3.67:
+		if xf[i] > 1 and xf[i] < 2.5:
+		#if xf[i] > 0.6 and xf[i] < 3.67:
 			frequencias.append(xf[i])
 			amplitudes.append(np.abs(yf[i]))	
 	amplitudes, frequencias = zip(*sorted(zip(amplitudes, frequencias)))
@@ -128,7 +128,7 @@ def heart_beat(n, xf, yf):
 		amplitudesMax.append(amplitudes[j])	
 		j-=1
 	frequenciasMax, amplitudesMax = zip(*sorted(zip(frequenciasMax, amplitudesMax)))
-	
+
 	if j == -1:
 		mediaFrequencia = sum(frequenciasMax) / len(frequenciasMax)
 	else:

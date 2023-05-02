@@ -21,11 +21,11 @@ def process_pcap_file(pcap_filename, caminho, sequence):
     
     csi_data = samples.get_pd_csi()
     csi = []
-    csi.append(analyze(csi_data[:160],sequence))
+    csi.append(analyze(csi_data[:80],sequence))
     print(csi)
-    csi.append(analyze(csi_data[160:320],sequence))
+    csi.append(analyze(csi_data[80:160],sequence))
     print(csi)
-    csi.append(analyze(csi_data[320:500],sequence))
+    csi.append(analyze(csi_data[160:240],sequence))
     print(csi)
 
     #return analyze(csi_data, sequence)
