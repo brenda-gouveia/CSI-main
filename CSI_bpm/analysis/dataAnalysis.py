@@ -135,6 +135,8 @@ def heart_beat(n, xf, yf):
 		mediaFrequencia = sum(frequenciasMax) / n
 	bpm = round(mediaFrequencia * 60)
 
+	plot(frequenciasMax, amplitudesMax)
+
 	#InterfaceHeartRate.show_heart_rate(bpm)
 	#timestamp = time()
 	#dt = datetime.fromtimestamp(timestamp, tz = timezone("America/Sao_Paulo"))
@@ -157,12 +159,17 @@ def csi_fft(series):
                   #anteriormente 4
 	return heart_beat(4, xf, yf)
 	
-	
-def plot(series, title):
+def plot(x,y):
 	f, ax = plt.subplots()
-	plt.plot(series)
-	ax.set(xlabel='Samples', ylabel='dB', title=title)
+	plt.plot(x,y, color = 'green')
+	ax.set(xlabel='Frequencias', ylabel='dB', title='Frequencias')
 	plt.show()
+
+#def plot(series, title):
+#	f, ax = plt.subplots()
+#	plt.plot(series)
+#	ax.set(xlabel='Samples', ylabel='dB', title=title)
+#	plt.show()
 
 def mediana_filter(series, size):
     return median_filter(series, 15)
