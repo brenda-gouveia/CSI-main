@@ -74,10 +74,10 @@ def moving_avg_filter(series):
 def band_pass_filter(series):
 	fs = 43.47
 	t = 1.0 / fs
-	#lowcut = 0.6
-	#highcut = 3.67
-	lowcut = 1
-	highcut = 2.5
+	lowcut = 0.6
+	highcut = 3.67
+	#lowcut = 1
+	#highcut = 2.5
 	n = len(series)
 	b, a = butter(5, [lowcut / (fs / 2), highcut / (fs / 2)], 'band', analog=False, output='ba')
 
@@ -111,8 +111,8 @@ def heart_beat(n, xf, yf):
 	sizeXf = len(xf)	
 
 	for i in range(sizeXf):
-		if xf[i] > 1 and xf[i] < 2.5:
-		#if xf[i] > 0.6 and xf[i] < 3.67:
+		#if xf[i] > 1 and xf[i] < 2.5:
+		if xf[i] > 0.6 and xf[i] < 3.67:
 			frequencias.append(xf[i])
 			amplitudes.append(np.abs(yf[i]))	
 	amplitudes, frequencias = zip(*sorted(zip(amplitudes, frequencias)))
@@ -135,7 +135,7 @@ def heart_beat(n, xf, yf):
 		mediaFrequencia = sum(frequenciasMax) / n
 	bpm = round(mediaFrequencia * 60)
 
-	plot(frequenciasMax, amplitudesMax)
+	#plot(frequenciasMax, amplitudesMax)
 
 	#InterfaceHeartRate.show_heart_rate(bpm)
 	#timestamp = time()
@@ -157,12 +157,12 @@ def csi_fft(series):
 	#plt.xlim(0, 4)
 	#plt.show()
                   #anteriormente 4
-	return heart_beat(4, xf, yf)
+	return heart_beat(1, xf, yf)
 	
 def plot(x,y):
 	f, ax = plt.subplots()
 	plt.plot(x,y, color = 'green')
-	ax.set(xlabel='Frequencias', ylabel='dB', title='Frequencias')
+	ax.set(xlabel='Frequencias', ylabel='dB', title='Frequencias Máximas a cada 20 segundos')
 	plt.show()
 
 #def plot(series, title):

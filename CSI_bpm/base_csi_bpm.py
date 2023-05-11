@@ -7,6 +7,10 @@ import dataset.coleta as dataset
 #import dataset.tabela as tabela
 import pandas as pd
 import pickle
+import numpy as np
+
+import warnings
+warnings.simplefilter("ignore", np.ComplexWarning)
 
 def verificar(objeto):
     if str(type(objeto)).find("Series") != -1:
@@ -49,8 +53,8 @@ if __name__ == "__main__":
             file_exists = dataset.check_next_file(file)
             print('Processados :', quantidade)
             if file_exists:
-                bpm = dataset.process_pcap_file(file, caminho, sequence)
-                print("##########  BPM   "+ file + "  " + filename + "  "+str(bpm)+ "###################")
+                bpm1,bpm2,bpm3 = dataset.process_pcap_file(file, caminho, sequence)
+                print("##########  BPM   "+ file + "  " + filename + "  "+str(bpm1)+ " "+ str(bpm2)+ " " + str(bpm3) +"###################")
                 #batimentos(filename, bpm)
             else:
                 break
