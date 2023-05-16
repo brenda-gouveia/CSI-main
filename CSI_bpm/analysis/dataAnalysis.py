@@ -135,16 +135,6 @@ def heart_beat(n, xf, yf):
 		mediaFrequencia = sum(frequenciasMax) / n
 	bpm = round(mediaFrequencia * 60)
 
-	#plot(frequenciasMax, amplitudesMax)
-
-	#InterfaceHeartRate.show_heart_rate(bpm)
-	#timestamp = time()
-	#dt = datetime.fromtimestamp(timestamp, tz = timezone("America/Sao_Paulo"))
-	#timestamp_bpm = dt.strftime("%d/%m/%Y %H:%M:%S")
-
-	#arqSaida = open("batimentos.txt","a+") 
-	#arqSaida.write(str(bpm) + ' ' + str(timestamp_bpm) + '\n')
-	#arqSaida.close()
 	return bpm
 		  
 
