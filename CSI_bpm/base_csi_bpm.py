@@ -55,21 +55,16 @@ if __name__ == "__main__":
             if file_exists:
                 bpm1,bpm2,bpm3 = dataset.process_pcap_file(file, caminho, sequence)
                 print("##########  BPM   "+ file + "  " + filename + "  "+str(bpm1)+ " "+ str(bpm2)+ " " + str(bpm3) +"###################")
-                #batimentos(filename, bpm)
+                batimentos(filename, bpm1)
+                batimentos(filename, bpm2)
+                batimentos(filename, bpm3)
             else:
                 break
             sequence += 1
     
-    #tab = pd.DataFrame(tabela)
-    #print(tab)
-    #tab.to_csv("teste.csv")
-    #tab.to_excel("path_to_file.xlsx")
-
-
-    #with open ("tabela_1_1config.pkl", mode ='wb') as f:
-    #    pickle.dump([tab], f)       
-
-
+    tab = pd.DataFrame(tabela)
+    tab.to_excel("path_to_file.xlsx")       
+                 
     print("########## CSI EXPLORER Ends ##########")
     comando = input('Type anything to close: ')
     os._exit(1)

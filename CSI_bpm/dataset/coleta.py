@@ -20,19 +20,15 @@ def process_pcap_file(pcap_filename, caminho, sequence):
         exit(-1)
     
     csi_data = samples.get_pd_csi()
-    csi = []
-    data1 = analyze(csi_data[:200],sequence)
-    data2 = analyze(csi_data[80:280],sequence)
-    data3 = analyze(csi_data[160:360],sequence)
-    #csi.append(analyze(csi_data[:200],sequence))
-    #print(csi)
-    #csi.append(analyze(csi_data[80:280],sequence))
-    #print(csi)
-    #csi.append(analyze(csi_data[160:360],sequence))
-    print(csi)
+
+    data1 = analyze(csi_data[0:250],sequence)
+    data2 = analyze(csi_data[80:375],sequence)
+    data3 = analyze(csi_data[160:500],sequence)
+
 
     #return analyze(csi_data, sequence)
-    return data1, data2, data3#csi
+
+    return data1, data2, data3  #csi
     
 
     #function to check if next file exists. Wait until 15 seconds
@@ -51,13 +47,4 @@ def check_next_file(file_name):
     print("Timeout")
     return False
 
-def sequencia():
-    sequence = 1
-    while sequence <18 :
-        pcap_filename = 'arq' + str(sequence)
-        file_exists = check_next_file(pcap_filename)
-        if file_exists:
-            process_pcap_file(pcap_filename)
-        else:
-            break
-        sequence += 1
+
