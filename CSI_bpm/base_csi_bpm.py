@@ -53,17 +53,19 @@ if __name__ == "__main__":
             file_exists = dataset.check_next_file(file)
             print('Processados :', quantidade)
             if file_exists:
+                
                 bpm1,bpm2,bpm3 = dataset.process_pcap_file(file, caminho, sequence)
                 print("##########  BPM   "+ file + "  " + filename + "  "+str(bpm1)+ " "+ str(bpm2)+ " " + str(bpm3) +"###################")
-                batimentos(filename, bpm1)
-                batimentos(filename, bpm2)
-                batimentos(filename, bpm3)
+                bpm_str = str(bpm1)+","+ str(bpm2)+','+str(bpm3)
+
+                batimentos(filename, bpm_str)
+                print(pd.DataFrame(tabela))
             else:
                 break
             sequence += 1
     
     tab = pd.DataFrame(tabela)
-    tab.to_excel("path_to_file.xlsx")       
+    tab.to_excel("tab.xlsx")       
                  
     print("########## CSI EXPLORER Ends ##########")
     comando = input('Type anything to close: ')
