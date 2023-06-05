@@ -21,14 +21,20 @@ def process_pcap_file(pcap_filename, caminho, sequence):
     
     csi_data = samples.get_pd_csi()
 
-    data1 = analyze(csi_data[0:250],sequence)
-    data2 = analyze(csi_data[80:375],sequence)
-    data3 = analyze(csi_data[160:500],sequence)
+    data1 = analyze(csi_data[0:250])
+
+    data2 = analyze(csi_data[45:295])
+    data3 = analyze(csi_data[90:340])
+
+    data4 = analyze(csi_data[135:385])
+
+    data5 = analyze(csi_data[180:410])
+    data6 = analyze(csi_data[225:475])
+    data7 = analyze(csi_data[250:500])
+
+    return data1, data2, data3, data4, data5, data6, data7
 
 
-    #return analyze(csi_data, sequence)
-
-    return data1, data2, data3  #csi
     
 
     #function to check if next file exists. Wait until 15 seconds
