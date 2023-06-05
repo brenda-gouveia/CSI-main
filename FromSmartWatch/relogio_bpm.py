@@ -91,7 +91,7 @@ for filename in scans: # roda os scans
 tab = pd.DataFrame(relogio)
 print(tab)
 tab.to_csv("relogio.csv")
-tab.to_excel("tabela_relogio.xlsx")
+tab.to_excel("relogio.xlsx")
 
 with open ("tabela_1_1config.pkl", mode ='wb') as f:
         pickle.dump([tab], f)       

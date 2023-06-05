@@ -5,6 +5,7 @@ from plotters.AmpPhaPlotter import Plotter
 import os
 import dataset.coleta as dataset
 #import dataset.tabela as tabela
+from os.path import dirname, join
 import pandas as pd
 import pickle
 import numpy as np
@@ -38,6 +39,8 @@ if __name__ == "__main__":
     print("########## CSI EXPLORER Begins ##########")
 
     path = "..\scans" # caminho dos scans
+    current_dir = dirname(__file__)
+    file_path = join(current_dir, path)
 
     scans = os.listdir(path)
 
@@ -48,7 +51,7 @@ if __name__ == "__main__":
         sequence = 1
         quantidade +=1
 
-        while sequence <18 and quantidade <118 :
+        while sequence <18 and quantidade <118:
             file = 'arq' + str(sequence)
             file_exists = dataset.check_next_file(file)
             print('Processados :', quantidade)
