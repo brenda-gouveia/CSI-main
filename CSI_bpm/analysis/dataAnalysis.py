@@ -157,7 +157,7 @@ def csi_fft(series):
 	#plt.xlim(0, 4)
 	#plt.show()
                   #anteriormente 4
-	return heart_beat(4, xf, yf)
+	return heart_beat(1, xf, yf)
 	
 def plot(x,y):
 	f, ax = plt.subplots()
