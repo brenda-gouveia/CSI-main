@@ -6,7 +6,7 @@ import os
 import time
 
 
-def process_pcap_file(pcap_filename, caminho):
+def process_pcap_file(pcap_filename, caminho, sequence):
 
     #pcap_filepath = '../scans'
    
@@ -18,14 +18,23 @@ def process_pcap_file(pcap_filename, caminho):
     except FileNotFoundError:
         print(f'File {pcap_filepath} not found.')
         exit(-1)
-
-    #if config.plot_samples:
-    #    plotter = Plotter(samples.bandwidth, samples.nsamples)
     
-
     csi_data = samples.get_pd_csi()
-    return analyze(csi_data)
-    
+
+    data1 = analyze(csi_data[0:250], sequence)
+
+    data2 = analyze(csi_data[45:295], sequence)
+    data3 = analyze(csi_data[90:340], sequence)
+
+    data4 = analyze(csi_data[135:385], sequence)
+
+    data5 = analyze(csi_data[180:410], sequence)
+    data6 = analyze(csi_data[225:475], sequence)
+    data7 = analyze(csi_data[250:500], sequence)
+
+    return data1, data2, data3, data4, data5, data6, data7
+
+
     
 
     #function to check if next file exists. Wait until 15 seconds
@@ -44,13 +53,4 @@ def check_next_file(file_name):
     print("Timeout")
     return False
 
-def sequencia():
-    sequence = 1
-    while sequence <18 :
-        pcap_filename = 'arq' + str(sequence)
-        file_exists = check_next_file(pcap_filename)
-        if file_exists:
-            process_pcap_file(pcap_filename)
-        else:
-            break
-        sequence += 1
+

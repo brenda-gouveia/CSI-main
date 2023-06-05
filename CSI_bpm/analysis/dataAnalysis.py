@@ -1,3 +1,4 @@
+import fnmatch
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -10,6 +11,31 @@ from scipy.fft import fft, fftfreq
 from time import time
 from datetime import datetime;
 from pytz import timezone
+import json
+from os.path import dirname, join
+import pickle
+from scipy.ndimage import median_filter
+
+
+def variance_pca(series, sequence): ## sequence é as posições, de 1 ao 17
+
+	current_dir = dirname(__file__)
+	file_path = join(current_dir, "pca_variance.json")
+
+	pca = PCA()
+	principal_components = pca.fit_transform(series)
+
+	explained_variance = pca.explained_variance_ratio_
+
+	with open(file_path, 'r') as arquivo:
+		dados = json.load(arquivo)
+
+	dados[str(sequence)].append(explained_variance[0])
+
+	with open(file_path, 'w') as arquivo:
+		json.dump(dados, arquivo)
+	
+	
 
 def iq_samples_abs(series):
 	abs_series = {}
@@ -48,10 +74,10 @@ def moving_avg_filter(series):
 def band_pass_filter(series):
 	fs = 43.47
 	t = 1.0 / fs
-	#lowcut = 0.6
-	#highcut = 3.67
-	lowcut = 1
-	highcut = 2.5
+	lowcut = 0.6
+	highcut = 3.67
+	#lowcut = 1
+	#highcut = 2.5
 	n = len(series)
 	b, a = butter(5, [lowcut / (fs / 2), highcut / (fs / 2)], 'band', analog=False, output='ba')
 
@@ -85,8 +111,8 @@ def heart_beat(n, xf, yf):
 	sizeXf = len(xf)	
 
 	for i in range(sizeXf):
-		if xf[i] > 1 and xf[i] < 2.5:
-		#if xf[i] > 0.6 and xf[i] < 3.67:
+		#if xf[i] > 1 and xf[i] < 2.5:
+		if xf[i] > 0.6 and xf[i] < 3.67:
 			frequencias.append(xf[i])
 			amplitudes.append(np.abs(yf[i]))	
 	amplitudes, frequencias = zip(*sorted(zip(amplitudes, frequencias)))
@@ -96,21 +122,29 @@ def heart_beat(n, xf, yf):
 	amplitudesMax = []
 
 	for i in range(n):
+		if j <= -1:
+			break
 		frequenciasMax.append(frequencias[j])
 		amplitudesMax.append(amplitudes[j])	
 		j-=1
 	frequenciasMax, amplitudesMax = zip(*sorted(zip(frequenciasMax, amplitudesMax)))
-	
-	mediaFrequencia = sum(frequenciasMax) / n
-	bpm = round(mediaFrequencia * 60) 
-	#InterfaceHeartRate.show_heart_rate(bpm)
-	timestamp = time()
-	dt = datetime.fromtimestamp(timestamp, tz = timezone("America/Sao_Paulo"))
-	timestamp_bpm = dt.strftime("%d/%m/%Y %H:%M:%S")
 
-	arqSaida = open("batimentos.txt","a+") 
-	arqSaida.write(str(bpm) + ' ' + str(timestamp_bpm) + '\n')
-	arqSaida.close()
+	if j == -1:
+		mediaFrequencia = sum(frequenciasMax) / len(frequenciasMax)
+	else:
+		mediaFrequencia = sum(frequenciasMax) / n
+	bpm = round(mediaFrequencia * 60)
+
+	#plot(frequenciasMax, amplitudesMax)
+
+	#InterfaceHeartRate.show_heart_rate(bpm)
+	#timestamp = time()
+	#dt = datetime.fromtimestamp(timestamp, tz = timezone("America/Sao_Paulo"))
+	#timestamp_bpm = dt.strftime("%d/%m/%Y %H:%M:%S")
+
+	#arqSaida = open("batimentos.txt","a+") 
+	#arqSaida.write(str(bpm) + ' ' + str(timestamp_bpm) + '\n')
+	#arqSaida.close()
 	return bpm
 		  
 
@@ -125,16 +159,24 @@ def csi_fft(series):
                   #anteriormente 4
 	return heart_beat(4, xf, yf)
 	
-	
-def plot(series, title):
+def plot(x,y):
 	f, ax = plt.subplots()
-	plt.plot(series)
-	ax.set(xlabel='Samples', ylabel='dB', title=title)
+	plt.plot(x,y, color = 'green')
+	ax.set(xlabel='Frequencias', ylabel='dB', title='Frequencias Máximas a cada 20 segundos')
 	plt.show()
 
+#def plot(series, title):
+#	f, ax = plt.subplots()
+#	plt.plot(series)
+#	ax.set(xlabel='Samples', ylabel='dB', title=title)
+#	plt.show()
 
-def analyze(csi):
-	series_abs = iq_samples_abs(csi)
+def mediana_filter(series, size):
+    return median_filter(series, 15)
+
+
+def analyze(csi, sequence):
+	#series_abs = iq_samples_abs(csi)
 	#plot(series_abs, "All subcarrier's magnitude")
 
 	#series = hampel_filter(csi)
@@ -143,15 +185,22 @@ def analyze(csi):
 	#series = moving_avg_filter(series)
 	
 	series = moving_avg_filter(csi)
+	#plot(series, "After Moving Average Filter")
 
-	series = moving_avg_filter(series)
+	#median_filter(series, 15)
+
+
+	#series = moving_avg_filter(series)
 	#plot(series, "After Moving Average Filter")
 
 	series = band_pass_filter(series)
 	#plot(series, "After Band Pass Filter")
 
+	#variance_pca(series, sequence)
+
 	series = csi_pca(series)
 	#plot(series, "Principal Component")
+
 
 	x = series['PCA'].to_numpy()
 	bpm = csi_fft(x)
