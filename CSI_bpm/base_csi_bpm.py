@@ -57,9 +57,12 @@ if __name__ == "__main__":
             print('Processados :', quantidade)
             if file_exists:
                 
-                bpm1,bpm2,bpm3 = dataset.process_pcap_file(file, caminho, sequence)
-                print("##########  BPM   "+ file + "  " + filename + "  "+str(bpm1)+ " "+ str(bpm2)+ " " + str(bpm3) +"###################")
-                bpm_str = str(bpm1)+","+ str(bpm2)+','+str(bpm3)
+                
+                bpm1,bpm2,bpm3, bpm4, bpm5, bpm6, bpm7 = dataset.process_pcap_file(file, caminho, sequence)
+                print("##########  BPM   "+ file + "  " + filename + "  "+str(bpm1)+ " "+ str(bpm2)+ " " + str(bpm3))
+                print(" "+ str(bpm4) + " " + str(bpm5)+ ' '+ str(bpm6) + ' ' + str(bpm7)+ "##############")
+
+                bpm_str = str(bpm1)+","+ str(bpm2)+','+str(bpm3)+','+str(bpm4)+','+str(bpm5)+','+str(bpm6)+ ',' + str(bpm7)
 
                 batimentos(filename, bpm_str)
                 print(pd.DataFrame(tabela))
