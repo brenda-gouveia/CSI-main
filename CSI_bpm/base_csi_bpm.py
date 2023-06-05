@@ -65,7 +65,7 @@ if __name__ == "__main__":
                 bpm_str = str(bpm1)+","+ str(bpm2)+','+str(bpm3)+','+str(bpm4)+','+str(bpm5)+','+str(bpm6)+ ',' + str(bpm7)
 
                 batimentos(filename, bpm_str)
-                print(pd.DataFrame(tabela))
+                #print(pd.DataFrame(tabela))
             else:
                 break
             sequence += 1
