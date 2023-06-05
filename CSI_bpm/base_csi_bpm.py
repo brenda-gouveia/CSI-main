@@ -71,7 +71,7 @@ if __name__ == "__main__":
             sequence += 1
     
     tab = pd.DataFrame(tabela)
-    tab.to_excel("tab_config1.xlsx")       
+    tab.to_excel("tab_config4.xlsx")       
                  
     print("########## CSI EXPLORER Ends ##########")
     comando = input('Type anything to close: ')
