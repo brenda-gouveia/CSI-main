@@ -12,6 +12,7 @@ import numpy as np
 
 import warnings
 warnings.simplefilter("ignore", np.ComplexWarning)
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 def verificar(objeto):
     if str(type(objeto)).find("Series") != -1:
@@ -71,7 +72,7 @@ if __name__ == "__main__":
             sequence += 1
     
     tab = pd.DataFrame(tabela)
-    tab.to_excel("tab_config4.xlsx")       
+    tab.to_excel("tab_config1.xlsx")       
                  
     print("########## CSI EXPLORER Ends ##########")
     comando = input('Type anything to close: ')
